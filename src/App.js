@@ -1,20 +1,20 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function App() {
-  const [action, setAction] =useState()
+  const navigate = useNavigate();
+  // const handle = () => {
+  //   console.log("clicked");
+  //   navigate("success");
+  // };
   // formik will handle all the changes and stores the input
-  const handler = () => {
-    
-  };
   const formik = useFormik({
     initialValues: {
       name: "",
       email: "",
       password: "",
       confirmpassword: "",
-      
     },
     // Yup is use for the validation purposes
     validationSchema: Yup.object({
@@ -29,6 +29,7 @@ function App() {
     }),
     onSubmit: (values) => {
       console.log(values);
+      navigate("/Success");
     },
   });
   console.log(formik.values);
@@ -38,7 +39,7 @@ function App() {
       <div className="flex items-center h-screen justify-center bg-slate-800">
         <form
           className="bg-white rounded-lg p-20 flex"
-          onSubmit={formik.handleSubmit}
+          onSubmit={(values) => onsubmit(values)}
         >
           <div>
             <h1 className="text-2xl text-center text-red-600 ">
@@ -130,15 +131,15 @@ function App() {
             <div className="mt-6">
               <button
                 type="submit"
-                onClick={handler}
+                onClick={formik.handleSubmit}
                 className="bg-blue-500 px-4 py-2 text-white hover:bg-red-500 hover:transition-all rounded-md w-full"
               >
-               {formik.values ? action : alert(formik.initialValues)|| alert("please fill")}
                 Submit
               </button>
             </div>
           </div>
         </form>
+        {/* <button onClick={handle}>text</button> */}
       </div>
     </main>
   );
